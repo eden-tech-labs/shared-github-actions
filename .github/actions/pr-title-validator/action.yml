@@ -1,0 +1,16 @@
+name: 'PR Title Validator'
+description: 'Validates the title of pull requests to match the pattern ETL-{id} | {other text}'
+inputs:
+  pr_title:
+    description: 'The title of the pull request'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Check PR title
+      id: validate
+      run: |
+        if [[ ! "$INPUT_PR_TITLE" =~ ^ETL-[0-9]{4,5}\ \|\ .+$ ]]; then
+          echo "PR title does not match the required pattern: ETL-{id} | {other text}"
+          exit 1
+        fi
