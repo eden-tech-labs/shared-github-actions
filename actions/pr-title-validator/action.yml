@@ -9,6 +9,7 @@ runs:
   steps:
     - name: Check PR title
       id: validate
+      shell: bash
       run: |
         if [[ ! "$INPUT_PR_TITLE" =~ ^ETL-[0-9]{4,5}\ \|\ .+$ ]]; then
           echo "PR title does not match the required pattern: ETL-{id} | {other text}"
